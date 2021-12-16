@@ -25,6 +25,44 @@
     header {
       text-align: center;
     }
+
+    #timeUp {
+      position: relative;
+      background-color: antiquewhite;
+      z-index: 10;
+      width: 50%;
+      margin: auto;
+      border-radius: 5px;
+      display: none;
+    }
+
+    #timeUp header {
+      background-color: rgb(12, 11, 11);
+      color: white;
+      padding: 1em;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+
+    #timeUp main {
+      padding: 1em;
+    }
+
+    #timeUp footer {
+      padding: 1em;
+      background-color: azure;
+      text-align: center;
+    }
+
+    #modalBackground {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.5);
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: none;
+    }
   </style>
 </head>
 
@@ -42,6 +80,16 @@
   </div>
   <label for="timeLeft">Time Left</label>
   <progress id="timeLeft" value="70" max="100"></progress>
+  <div id="timeUp">
+    <header>Time Up</header>
+    <main>
+      You have finished your homework time!
+    </main>
+    <footer>
+      <button type="button" onclick="reset()">New Timer</button>
+    </footer>
+  </div>
+  <div id="modalBackground"></div>
   <script>
     class Timer {
       #elapsedTime = 0;
@@ -52,6 +100,8 @@
       constructor(timeToTime) {
         if (timeToTime > 0) {
           this.#totalTime = timeToTime;
+        } else {
+          throw new Error('Must time a time.')
         }
       }
 
@@ -81,6 +131,7 @@
           this.#totalTime - this.#elapsedTime
         );
         const timeUp = timeRemaining === 0;
+
         return {
           totalTime: this.#totalTime,
           timeRemaining,
@@ -99,14 +150,21 @@
     const stop = document.getElementById('stop')
     const timeControl = document.getElementById('timeControl')
     const time = document.getElementById('time')
+    const timeUpModal = document.getElementById('timeUp')
+    const modalBackground = document.getElementById('modalBackground')
 
-    let timer = new Timer(60 * 1000);
+    let timer = new Timer(5 * 60 * 1000);
     let playedSound = false;
 
     function setTime() {
       const minutesToTime = parseInt(time.value, 10)
-      console.log({ minutesToTime })
       timer = new Timer(minutesToTime * 60 * 1000)
+    }
+
+    function reset() {
+      setTime()
+      timeUpModal.style.diplay = 'none'
+      modalBackground.style.display = 'none'
     }
 
     function update() {
@@ -116,18 +174,19 @@
       progress.max = totalTime;
 
       if (isRunning && timeUp && !playedSound) {
-        console.log({ isRunning, timeUp, playedSound });
         beep.play();
         playedSound = true;
+        modalBackground.style.display = 'block'
+        timeUpModal.style.display = 'block'
       }
 
-      if (isRunning) {
-        console.log(start.style.display)
+      if (isRunning && !timeUp) {
         start.style.display = 'none'
         stop.style.display = ''
         timeControl.style.display = 'none'
       }
-      if (!isRunning) {
+
+      if (!isRunning || timeUp) {
         start.style.display = ''
         stop.style.display = 'none'
         timeControl.style.display = ''
