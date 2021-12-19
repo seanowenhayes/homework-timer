@@ -15,7 +15,7 @@ let playedSound = false;
 
 function setTime() {
     const minutesToTime = parseInt(time.value, 10)
-    timer = new Timer(minutesToTime * 1000)
+    timer = new Timer(minutesToTime * 60 * 1000)
 }
 
 function reset() {
@@ -48,13 +48,11 @@ function update() {
     if (isRunning && !timeUp) {
         start.style.display = 'none'
         stop.style.display = ''
-        timeControl.style.display = 'none'
     }
 
     if (!isRunning || timeUp) {
         start.style.display = ''
         stop.style.display = 'none'
-        timeControl.style.display = ''
     }
 
     requestAnimationFrame(update);
