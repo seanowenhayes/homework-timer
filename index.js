@@ -15,13 +15,22 @@ let playedSound = false;
 
 function setTime() {
     const minutesToTime = parseInt(time.value, 10)
-    timer = new Timer(minutesToTime * 60 * 1000)
+    timer = new Timer(minutesToTime * 1000)
 }
 
 function reset() {
     setTime()
-    timeUpModal.style.diplay = 'none'
+    hideModal()
+    playedSound = false
+}
+
+function showModal() {
+    modalBackground.style.display = 'block'
+    timeUpModal.style.display = 'block'
+}
+function hideModal() {
     modalBackground.style.display = 'none'
+    timeUpModal.style.display = 'none'
 }
 
 function update() {
@@ -33,8 +42,7 @@ function update() {
     if (isRunning && timeUp && !playedSound) {
         beep.play();
         playedSound = true;
-        modalBackground.style.display = 'block'
-        timeUpModal.style.display = 'block'
+        showModal()
     }
 
     if (isRunning && !timeUp) {

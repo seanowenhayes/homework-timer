@@ -14,14 +14,14 @@
     <h1>Homework Timer</h1>
   </header>
   <div id="timeControl">
-    <label for="time">Time (mins)</label>
-    <input type="number" name="time" id="time" value="5" step="1" min="1" onchange="setTime()" />
+    <label for="time">Time (mins) <input type="number" name="time" id="time" value="5" step="1" min="1" onchange="setTime()" /></label>
+    
+    <div class="controls">
+      <button id="start" type="button" class="start" onclick="timer.start()">START</button>
+      <button id="stop" type="button" class="stop" onclick="timer.stop()">STOP</button>
+    </div>
   </div>
-  <div class="controls">
-    <button id="start" type="button" class="start" onclick="timer.start()">START</button>
-    <button id="stop" type="button" class="stop" onclick="timer.stop()">STOP</button>
-  </div>
-  <label for="timeLeft">Time Left</label>
+  
   <progress id="timeLeft" value="70" max="100"></progress>
   <div id="timeUp">
     <header>Time Up</header>
