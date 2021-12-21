@@ -5,8 +5,11 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#4285f4">
   <title>Homework Timer</title>
-  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="/index.css">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="/logo.svg" />
 </head>
 
 <body>
@@ -19,7 +22,7 @@
 
     <div class="controls">
       <button id="start" type="button" class="start" onclick="timer.start()">START</button>
-      <button id="stop" type="button" class="stop" onclick="timer.stop()">PAUSE</button>
+      <button id="stop" type="button" class="stop" onclick="timer.stop()" style="display: none;">PAUSE</button>
     </div>
   </div>
 
@@ -34,8 +37,9 @@
     </footer>
   </div>
   <div id="modalBackground"></div>
-  <script src="./timer.js"></script>
-  <script src="./index.js"></script>
+  <script src="/timer.js"></script>
+
+  <script src="/index.js" type="module"></script>
 </body>
 
 </html>
