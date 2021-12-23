@@ -1,3 +1,4 @@
+console.log('In timer')
 class Timer {
     #elapsedTime = 0;
     #totalTime;
